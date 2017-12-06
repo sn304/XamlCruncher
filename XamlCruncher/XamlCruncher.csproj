@@ -105,6 +105,7 @@
     <Compile Include="SplitContainer.xaml.cs">
       <DependentUpon>SplitContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TabbableTextBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

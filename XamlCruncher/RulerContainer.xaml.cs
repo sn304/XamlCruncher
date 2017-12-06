@@ -35,17 +35,17 @@ namespace XamlCruncher
 
         private static void OnShowRulerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            (d as RulerContainer).RedrawRuler();
         }
 
         private static void OnShowLinesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            (d as RulerContainer).RedrawLines();
         }
 
         private static void OnChildChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            (d as RulerContainer).border.Child = (UIElement)e.NewValue;
         }
 
         public static DependencyProperty ChildPorperty { get; private set; }
@@ -136,10 +136,56 @@ namespace XamlCruncher
                 StrokeThickness=2            
             };
             rulercanvas.Children.Add(topline);
+            for (double y = 0; y < ActualHeight - RULER_WIDTH; y += 12)
+            {
 
+                if (y > 0 && y % 96 == 0)
+                {
+                    TextBlock text = new TextBlock
+                    {
+                        Text = (y / 96).ToString("F0"),
+                        FontSize = RULER_WIDTH - 2
+                    };
+                    text.Measure(new Size());//逼迫计算text的实际长宽
+                    Canvas.SetLeft(text, 2);
+                    Canvas.SetTop(text, RULER_WIDTH+y-ActualHeight/2);
+                    rulercanvas.Children.Add(text);
+                }
+                else
+                {
+                    Line line = new Line
+                    {
+                        X1 = y % 48 == 0 ? 2 : 4,
+                        X2 = y % 48 == 0 ? RULER_WIDTH - 2 : RULER_WIDTH - 4,
+                        Y1 = y+ RULER_WIDTH,
+                        Y2 = y+ RULER_WIDTH,
+                        Stroke = Foreground,
+                        StrokeThickness = 1
+
+                    };
+
+                    rulercanvas.Children.Add(line);
+                }
+            }
+            Line  leftline = new Line
+            {
+                X1 = RULER_WIDTH - 1,
+                X2 = RULER_WIDTH - 1,
+                Y1 = RULER_WIDTH - 1,
+                Y2 = ActualHeight,
+                Stroke = Foreground,
+                StrokeThickness = 2
+            };
+            rulercanvas.Children.Add(leftline);
 
 
         }
 
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            RedrawLines();
+            RedrawRuler();
+
+        }
     }
 }

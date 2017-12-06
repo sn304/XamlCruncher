@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid SizeChanged="Grid_SizeChanged">
         <Canvas x:Name="rulercanvas"/>
         <Grid x:Name="innergrid">
             <Grid x:Name="gridlinesGrid"/>
