@@ -1,0 +1,96 @@
+﻿<UserControl
+    x:Class="XamlCruncher.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:XamlCruncher"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="500"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style x:Key="DialogCaptionTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14.67"/>
+            <Setter Property="FontWeight" Value="SemiLight"/>
+            <Setter Property="Margin" Value="7 0 0 0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="{StaticResource ApplicationPageBackgroundThemeBrush}" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}"  BorderThickness="1">
+            <StackPanel Margin="24">
+                <TextBlock Text="XamlCruncher Settings" Style="{StaticResource DialogCaptionTextStyle}" Margin="0 0 0 12"/>
+                <ToggleSwitch Header="AutoParsing" IsOn="{Binding AutoParsing, Mode=TwoWay}"/>
+                <TextBlock Text="Orientation" Style="{StaticResource DialogCaptionTextStyle}"/>
+                <Grid x:Name="orientationgrid" Margin="7 0 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="{StaticResource ApplicationForegroundThemeBrush}"/>
+                            <Setter Property="Padding" Value="3"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="local:EditOrientationRadioButton">
+                            <Setter Property="Margin" Value="0 6 12 6"/>
+                        </Style>
+                    </Grid.Resources>
+                    <local:EditOrientationRadioButton Grid.Row="0" Grid.Column="0" EditOrientation="Left" Checked="EditOrientationRadioButton_Checked">
+                        <StackPanel Orientation="Horizontal">
+                            <Border>
+                                <TextBlock Text="edit"/>
+                            </Border>
+                            <Border>
+                                <TextBlock Text="display"/>
+                            </Border>
+                        </StackPanel>
+                    </local:EditOrientationRadioButton>
+                    <local:EditOrientationRadioButton Grid.Row="0" Grid.Column="1" EditOrientation="Right" Checked="EditOrientationRadioButton_Checked">
+                        <StackPanel Orientation="Horizontal" >
+                            <Border>
+                            <TextBlock Text="display"/>
+                        </Border>
+                        <Border>
+                            <TextBlock Text="edit"/>
+                        </Border>
+                        </StackPanel>
+                    </local:EditOrientationRadioButton>
+                    <local:EditOrientationRadioButton Grid.Row="1" Grid.Column="1" EditOrientation="Button" Checked="EditOrientationRadioButton_Checked">
+                        <StackPanel Orientation="Vertical" >
+                            <Border>
+                                <TextBlock Text="display"/>
+                            </Border>
+                            <Border>
+                                <TextBlock Text="edit"/>
+                            </Border>
+                        </StackPanel>
+                    </local:EditOrientationRadioButton>
+                    <local:EditOrientationRadioButton Grid.Row="1" Grid.Column="0" EditOrientation="Top" Checked="EditOrientationRadioButton_Checked">
+                        <StackPanel Orientation="Vertical" >
+                            <Border>
+                                <TextBlock Text="edit"/>
+                            </Border>
+                            <Border>
+                                <TextBlock Text="display"/>
+                            </Border>
+                        </StackPanel>
+                    </local:EditOrientationRadioButton>
+                </Grid>
+                <ToggleSwitch Header="Ruler" OnContent="Show" OffContent="Hide" IsOn="{Binding ShowRuler, Mode=TwoWay}"/>
+                <ToggleSwitch Header="Lines" OnContent="Show" OffContent="Hide" IsOn="{Binding ShowLines, Mode=TwoWay}"/>
+                <Slider Orientation="Horizontal" Header="FontSize" Value="{Binding FontSize, Mode=TwoWay}" Minimum="10" Maximum="48" Margin="7 0 0 0"/>
+                <Slider Orientation="Horizontal" Header="TabSpaces" Value="{Binding TabSpace, Mode=TwoWay}" Minimum="1" Maximum="12" Margin="7 0 0 0"/>
+            </StackPanel>
+            
+            
+        </Border>
+    </Grid>
+</UserControl>

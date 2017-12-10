@@ -6,8 +6,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary  Source="StandardStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="filenametext" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="18" TextTrimming="WordEllipsis"/>
+        <local:SplitContainer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="splitContainer" Orientation="{Binding Orientation}" SwapChild="{Binding SwapAndDisPlay}" Minimus="200" >
+            <local:SplitContainer.Child1>
+                <local:TabbableTextBox x:Name="edittext" FontSize="{Binding FontSize}" AcceptsReturn="True" TabSpace="{Binding TabSpace}" TextChanged="edittext_TextChanged" SelectionChanged="edittext_SelectionChanged"/>
+            </local:SplitContainer.Child1>
+            <local:SplitContainer.Child2>
+                <local:RulerContainer ShowLines="{Binding ShowLines}" ShowRuler="{Binding ShowRuler}" x:Name="reasultgrid"/>
+            </local:SplitContainer.Child2>
+        </local:SplitContainer>
+        <TextBlock x:Name="statusText" Grid.Row="2" Grid.Column="0"  FontSize="18"/>
+        <TextBlock x:Name="linecoltext" Grid.Row="2" Grid.Column="1" FontSize="18"/>
     </Grid>
+    <Page.BottomAppBar>
+        <AppBar Background="Black" Foreground="Black">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource RefreshAppBarButtonStyle}" x:Name="refreshbutton" Click="refreshbutton_Click"/>
+                    <Button Style="{StaticResource SettingsAppBarButtonStyle}" x:Name="settingbutton" Click="settingbutton_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource OpenFileAppBarButtonStyle}" x:Name="openbutton" Click="openbutton_Click"/>
+                    <Button Style="{StaticResource SaveLocalAppBarButtonStyle}" AutomationProperties.Name="Save As..." x:Name="save_as" Click="save_as_Click"/>
+                    <Button Style="{StaticResource SaveAppBarButtonStyle}" x:Name="save" Click="save_Click"/>
+                    <Button Style="{StaticResource AddAppBarButtonStyle}" x:Name="add" Click="add_Click"/>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 </Page>

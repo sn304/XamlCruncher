@@ -16,7 +16,7 @@ namespace XamlCruncher
         static TabbableTextBox() {
             TabSpaceProperty = DependencyProperty.Register("TabSpace", typeof(int), typeof(TabbableTextBox), new PropertyMetadata(4));
         }
-        public bool IsModified { get; set; }
+        public bool IsModified { get; set; } = false;
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             IsModified = true;
@@ -36,7 +36,7 @@ namespace XamlCruncher
             base.OnKeyDown(e);
         }
 
-        private void GetPositionFromIndex(int selectionStart, out int line, out int col)
+        public void GetPositionFromIndex(int selectionStart, out int line, out int col)
         {
             if(selectionStart>Text.Length)
             {
