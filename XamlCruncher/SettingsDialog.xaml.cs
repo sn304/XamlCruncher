@@ -33,6 +33,7 @@ namespace XamlCruncher
             {
                 x.IsChecked = (setting.EditOrientation == x.EditOrientation);
             }
+ 
         }
 
         private void EditOrientationRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -42,5 +43,11 @@ namespace XamlCruncher
             setting.EditOrientation = editOrientationRadioButton.EditOrientation;
 
         }
+
+
+
+
+
+    
     }
 }

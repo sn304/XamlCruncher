@@ -24,9 +24,9 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="filenametext" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="18" TextTrimming="WordEllipsis"/>
-        <local:SplitContainer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="splitContainer" Orientation="{Binding Orientation}" SwapChild="{Binding SwapAndDisPlay}" Minimus="200" >
+        <local:SplitContainer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" x:Name="splitContainer" Orientation="{Binding Orientation}" SwapChild="{Binding SwapAndDisplay}" Minimus="200" >
             <local:SplitContainer.Child1>
-                <local:TabbableTextBox x:Name="edittext" FontSize="{Binding FontSize}" AcceptsReturn="True" TabSpace="{Binding TabSpace}" TextChanged="edittext_TextChanged" SelectionChanged="edittext_SelectionChanged"/>
+                <local:TabbableTextBox x:Name="edittext" FontSize="{Binding FontSize}" AcceptsReturn="True" TabSpace="{Binding TabSpace}" TextChanged="edittext_TextChanged" SelectionChanged="edittext_SelectionChanged" />
             </local:SplitContainer.Child1>
             <local:SplitContainer.Child2>
                 <local:RulerContainer ShowLines="{Binding ShowLines}" ShowRuler="{Binding ShowRuler}" x:Name="reasultgrid"/>

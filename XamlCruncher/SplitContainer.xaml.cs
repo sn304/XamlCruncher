@@ -177,8 +177,9 @@ namespace XamlCruncher
             {
                 double newheight1 = Math.Max(0, row1.Height.Value + e.VerticalChange);
                 double newheight2 = Math.Max(0, row2.Height.Value - e.VerticalChange);
-                col1.Width = new GridLength(newheight1, GridUnitType.Star);
-                col2.Width = new GridLength(newheight2, GridUnitType.Star);
+                row1.Height = new GridLength(newheight1, GridUnitType.Star);
+                row2.Height = new GridLength(newheight2, GridUnitType.Star);
+
             }
         }
     }

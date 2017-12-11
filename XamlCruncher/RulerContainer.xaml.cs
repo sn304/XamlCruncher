@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -45,7 +46,10 @@ namespace XamlCruncher
 
         private static void OnChildChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as RulerContainer).border.Child = (UIElement)e.NewValue;
+            (d as RulerContainer).border.Child = (e.NewValue as UIElement);
+        
+
+
         }
 
         public static DependencyProperty ChildPorperty { get; private set; }
@@ -66,10 +70,11 @@ namespace XamlCruncher
                   X2 = x,
                   Y1 = 0,
                   Y2=ActualHeight,
-                 Stroke=Foreground,
+                 Stroke=new SolidColorBrush(Colors.Black),
                  StrokeThickness=x%96==0?1:0.5
                 };
                 gridlinesGrid.Children.Add(line);
+
             }
             for (double y = 24; y < this.ActualHeight; y += 24)
             {

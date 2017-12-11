@@ -12,8 +12,8 @@
     <Grid SizeChanged="Grid_SizeChanged">
         <Canvas x:Name="rulercanvas"/>
         <Grid x:Name="innergrid">
-            <Grid x:Name="gridlinesGrid"/>
-            <Border x:Name="border"/>
+            <Grid x:Name="gridlinesGrid"  Canvas.ZIndex="100"/>
+            <Border x:Name="border" Background="Transparent"></Border>
         </Grid>
     </Grid>
 </UserControl>

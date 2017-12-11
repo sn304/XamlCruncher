@@ -36,7 +36,7 @@ namespace XamlCruncher
             if (x.ContainsKey("ShowRuler"))
                 showRuler = (bool)x["ShowRuler"];
             if (x.ContainsKey("AutoParsing"))
-                AutoParsing = (bool)x["AutoParing"];
+                AutoParsing = (bool)x["AutoParsing"];
             if (x.ContainsKey("FontSize"))
                 FontSize = (double)x["FontSize"];
             if (x.ContainsKey("TabSpace"))
@@ -47,12 +47,13 @@ namespace XamlCruncher
         {
             ApplicationDataContainer appdata = ApplicationData.Current.LocalSettings;
             var x = appdata.Values;
-            x["EditOrientation"] = EditOrientation;
-            x["ShowLines"] = ShowLines;
-            x["ShowRuler"] = ShowRuler;
-            x["AutoParing"] = AutoParsing;
-            x["FontSize"] = FontSize;
-            x["TabSpace"] = TabSpace;
+            x.Clear();
+            x.Add("EditOrientation", (int)EditOrientation);
+            x.Add("ShowLines", ShowLines);
+            x.Add("ShowRuler", ShowRuler);
+            x.Add("AutoParsing", AutoParsing);
+            x.Add("FontSize", FontSize);
+            x.Add("TabSpace", TabSpace);
     }
         public  EditOrientation EditOrientation { set {
 
@@ -85,11 +86,11 @@ namespace XamlCruncher
         }
       public  Orientation Orientation {protected set { SetProperty<Orientation>(ref orientation, value); }get { return orientation; } }
         public bool SwapAndDisplay { protected set { SetProperty<bool>(ref swapandDisplay, value); } get { return swapandDisplay; } }
-        public bool ShowLines { protected set { SetProperty<bool>(ref showLines, value); } get { return showLines; } }
-        public bool ShowRuler { protected set { SetProperty<bool>(ref showRuler, value); } get { return showRuler; } }
-        public bool AutoParsing { protected set { SetProperty<bool>(ref autoparsing, value); } get { return autoparsing; } }
-        public double FontSize { protected set { SetProperty<double>(ref fontsize, value); } get { return fontsize; } }
-        public int TabSpace { protected set { SetProperty<int>(ref tabSpace, value); } get { return tabSpace; } }
+        public bool ShowLines { set { SetProperty<bool>(ref showLines, value); } get { return showLines; } }
+        public bool ShowRuler { set { SetProperty<bool>(ref showRuler, value); } get { return showRuler; } }
+        public bool AutoParsing {set { SetProperty<bool>(ref autoparsing, value); } get { return autoparsing; } }
+        public double FontSize {set { SetProperty<double>(ref fontsize, value); } get { return fontsize; } }
+        public int TabSpace { set { SetProperty<int>(ref tabSpace, value); } get { return tabSpace; } }
 
         bool SetProperty<T>(ref T storage,T value,[CallerMemberName]string propertyname=null)
         {
@@ -102,6 +103,7 @@ namespace XamlCruncher
 
         private void OnpropertyChanged(string propertyname)
         {
+            if(PropertyChanged!=null)
             PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
         }
     }

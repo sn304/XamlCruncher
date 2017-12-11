@@ -48,7 +48,9 @@ namespace XamlCruncher
         {
             appSetting.Save();
             SuspendingDeferral deferral = e.SuspendingOperation.GetDeferral();
-            await PathIO.WriteTextAsync("ms-appdata:///local/XmalCruncher.xmal", edittext.Text);
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile storageFile = await storageFolder.CreateFileAsync("XamlCrucher.xmal", CreationCollisionOption.OpenIfExists);
+            await FileIO.WriteTextAsync(storageFile, edittext.Text);
             deferral.Complete();
         }
 
@@ -66,11 +68,11 @@ namespace XamlCruncher
             ParseText();
             edittext.Focus(FocusState.Programmatic);
             DisplayLineAndColumn();
-            Application.Current.UnhandledException += (Sender, E) =>
+       /*     Application.Current.UnhandledException += (Sender, E) =>
             {
                 SetErrorStatus(E.Message);
                 E.Handled = true;
-            };
+            };*/
         }
 
         private void DisplayLineAndColumn()
@@ -81,7 +83,7 @@ namespace XamlCruncher
             if(edittext.SelectionLength>0)
             {
                 edittext.GetPositionFromIndex(edittext.SelectionStart + edittext.SelectionLength - 1, out line, out col);
-                linecoltext.Text += string.Format("-line {0} col {}", line, col);
+                linecoltext.Text += string.Format("-line {0} col {1}", line, col);
             }
         }
 
@@ -90,7 +92,7 @@ namespace XamlCruncher
             object result = null;
             try
             {
-                result = (UIElement)XamlReader.Load(edittext.Text);
+                result = XamlReader.Load(edittext.Text);
             }
             catch(Exception exc)
             {
@@ -125,21 +127,17 @@ namespace XamlCruncher
        async private Task SetDefaultXmal()
         {
             edittext.Text= @" <Page
-    x:Class=""XamlCruncher.BlankPage1\\""
-    xmlns = ""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns: x = ""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+            xmlns: x = ""http://schemas.microsoft.com/winfx/2006/xaml""
     xmlns: local = ""using:XamlCruncher""
     xmlns: d = ""http://schemas.microsoft.com/expression/blend/2008""
     xmlns: mc = ""http://schemas.openxmlformats.org/markup-compatibility/2006""
     mc: Ignorable = ""d"" >
  
 
-     < Grid Background = ""{ThemeResource ApplicationPageBackgroundThemeBrush}"" >
-  
+ </ Page >
 
-      </ Grid >
-  </ Page >
-  ";
+   ";
             edittext.IsModified = false;
             LoadedstorageFile = null;
             filenametext.Text = "";
@@ -268,7 +266,7 @@ namespace XamlCruncher
         async Task LoadFileFromOpenPicker()
         {
             FileOpenPicker picker = new FileOpenPicker();
-            picker.FileTypeFilter.Add(".xmal");
+            picker.FileTypeFilter.Add(".xaml");
             StorageFile storageFile = await picker.PickSingleFileAsync();
             if (storageFile == null)
                 return;

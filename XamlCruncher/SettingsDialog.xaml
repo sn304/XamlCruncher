@@ -19,6 +19,7 @@
         <Border Background="{StaticResource ApplicationPageBackgroundThemeBrush}" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}"  BorderThickness="1">
             <StackPanel Margin="24">
                 <TextBlock Text="XamlCruncher Settings" Style="{StaticResource DialogCaptionTextStyle}" Margin="0 0 0 12"/>
+   
                 <ToggleSwitch Header="AutoParsing" IsOn="{Binding AutoParsing, Mode=TwoWay}"/>
                 <TextBlock Text="Orientation" Style="{StaticResource DialogCaptionTextStyle}"/>
                 <Grid x:Name="orientationgrid" Margin="7 0 0 0">
